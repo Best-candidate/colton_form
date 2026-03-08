@@ -5,7 +5,6 @@ import { useNavigate ,useLocation} from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
 
-const CrohnSection = ({ formData, handleChange, questions, preferredLanguage }) => {
 const GeneralQuestions = ({ formData, handleChange, questions, preferredLanguage, handleFileChange, handleDiseaseChange }) => {
   return (
     <div className="general-questions mt-4">
@@ -1050,7 +1049,6 @@ const CrohnSection = ({ formData, handleChange, questions, preferredLanguage, ha
   );
 };
 
-const ArthritisSection = ({ formData, handleChange, questions, preferredLanguage }) => {
 const ArthritisSection = ({ formData, handleChange, questions, preferredLanguage, handleFileChange, handleDiseaseChange }) => {
   if (!(formData.diagnosis.includes("פסוריאטיק ארטריטס") || formData.diagnosis.includes("ראומטיק ארטריטיס"))) return null;
   return (
@@ -1112,7 +1110,6 @@ const ArthritisSection = ({ formData, handleChange, questions, preferredLanguage
   );
 };
 
-const PsoriasisSection = ({ formData, handleChange, questions, preferredLanguage }) => {
 const PsoriasisSection = ({ formData, handleChange, questions, preferredLanguage, handleFileChange, handleDiseaseChange }) => {
   if (!formData.diagnosis.includes("פסוריאזיס")) return null;
   return (
