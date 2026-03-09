@@ -979,76 +979,6 @@ const GeneralQuestions = ({ formData, handleChange, questions, preferredLanguage
   );
 };
 
-const CrohnSection = ({ formData, handleChange, questions, preferredLanguage, handleFileChange, handleDiseaseChange }) => {
-  if (!formData.diagnosis.includes("קרוהן/קוליטיס")) return null;
-  return (
-    <div className="section-crohn mb-5 border-bottom pb-4">
-      <h4 className="text-primary mb-3">שאלות עבור קרוהן/קוליטיס</h4>
-      
-      <div className="mb-3">
-          <label htmlFor="crohnAge" className="form-label">
-            {questions.find(q => q.field_name === "crohnAge")?.question_text || "שאלה לא זמינה"}
-          </label>
-          <input type="number" className="form-control" id="crohnAge" name="crohnAge" min="0" value={formData.crohnAge} onChange={handleChange} />
-      </div>
-      <div className="mb-3">
-          <label htmlFor="diagnosisAge" className="form-label">
-            {questions.find(q => q.field_name === "diagnosisAge")?.question_text || "שאלה לא זמינה"}
-          </label>
-          <input type="number" className="form-control" id="diagnosisAge" name="diagnosisAge" min="0" value={formData.diagnosisAge} onChange={handleChange} />
-      </div>
-
-      <div className="doctorduechron mb-3">
-        <label className="form-label">
-          {preferredLanguage === 'לשון זכר'
-            ? questions.find(q => q.field_name === "doctorDueChron_men")?.question_text || "שאלה לא זמינה"
-            : questions.find(q => q.field_name === "doctorDueChron_women")?.question_text || "שאלה לא זמינה"}
-        </label>
-        <div className="slider-container">
-          <input type="range" min="1" max="4" step="1" className="slider" onInput={handleChange} id="doctorduechron" name="doctorduechron" value={formData.doctorduechron}
-            onClick={(e) => { if (formData.doctorduechron === 0) handleChange(e); }} onChange={handleChange} />
-          <div className="slider-labels">
-            <span>0 - בכלל לא</span><span>1-2</span><span>3-4</span><span>יותר מחמש פעמים</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="form-group mb-3">
-          <label className="form-label">מתן צואה ברמיסיה - מספר פעמים ביום </label>
-          <input type="number" className="form-control" name="rimisia" value={formData.rimisia} onChange={handleChange} min="0" />
-      </div>
-      <div className="form-group mb-3">
-          <label className="form-label">מתן צואה בזמן התקף - מספר פעמים ביום </label>
-          <input type="number" className="form-control" name="poopDuringSuffer" value={formData.poopDuringSuffer} onChange={handleChange} min="0" />
-      </div>
-
-      <div className="form-group radio-preferred mb-3">
-          <label htmlFor="cronNegative" className="form-label" >
-          {questions.find(q => q.field_name === "cronNegative")?.question_text || "שאלה לא זמינה"} </label>
-          <div className="form-check">
-              <input type="radio" name="cronNegative" value="כן" onChange={handleChange}
-                  onClick={() => handleChange({ target: { name: "cronNegative", value: formData.cronNegative === "כן" ? "" :"כן" } })}
-                  checked={formData.cronNegative === "כן"} /> כן
-          </div>
-          <div className="form-check">
-              <input type="radio" name="cronNegative" value="לא" onChange={handleChange} 
-                  onClick={() => handleChange({ target: { name: "cronNegative", value: formData.cronNegative === "לא" ? "" :"לא" } })}
-                  checked={formData.cronNegative === "לא"} /> לא
-          </div>
-      </div>
-      {formData.cronNegative === "כן" && (
-        <div className="form-group mt-3">
-          <label htmlFor="cronNegativeReason" className="form-label">
-          {preferredLanguage === 'לשון זכר' ? ' אנא פרט בבקשה' : ' אנא פרטי בבקשה'}
-          </label>
-          <textarea id="cronNegativeReason" name="cronNegativeReason" value={formData.cronNegativeReason} onChange={handleChange} className="form-control" />
-        </div>
-      )}
-      <GeneralQuestions formData={formData} handleChange={handleChange} questions={questions} preferredLanguage={preferredLanguage} handleFileChange={handleFileChange} handleDiseaseChange={handleDiseaseChange} />
-    </div>
-  );
-};
-
 const ArthritisSection = ({ formData, handleChange, questions, preferredLanguage, handleFileChange, handleDiseaseChange }) => {
   if (!(formData.diagnosis.includes("פסוריאטיק ארטריטס") || formData.diagnosis.includes("ראומטיק ארטריטיס"))) return null;
   return (
@@ -1105,7 +1035,6 @@ const ArthritisSection = ({ formData, handleChange, questions, preferredLanguage
           <textarea id="cronNegativeReason" name="cronNegativeReason" value={formData.cronNegativeReason} onChange={handleChange} className="form-control" />
         </div>
       )}
-      <GeneralQuestions formData={formData} handleChange={handleChange} questions={questions} preferredLanguage={preferredLanguage} handleFileChange={handleFileChange} handleDiseaseChange={handleDiseaseChange} />
     </div>
   );
 };
@@ -1157,58 +1086,6 @@ const PsoriasisSection = ({ formData, handleChange, questions, preferredLanguage
               onClick={() => handleChange({ target: { name: "coverman", value: formData.coverman === "לא" ? "" :"לא" } })}
               checked={formData.coverman === "לא"} /> לא
         </div>
-      </div>
-      <GeneralQuestions formData={formData} handleChange={handleChange} questions={questions} preferredLanguage={preferredLanguage} handleFileChange={handleFileChange} handleDiseaseChange={handleDiseaseChange} />
-    </div>
-  );
-};
-
-const SharedPsoriasisArthritisSection = ({ formData, handleChange, questions, preferredLanguage }) => {
-  if (!(formData.diagnosis.includes("פסוריאטיק ארטריטס") || formData.diagnosis.includes("ראומטיק ארטריטיס") || formData.diagnosis.includes("פסוריאזיס"))) return null;
-  return (
-    <div className="section-shared-psoriasis-arthritis mb-5 border-bottom pb-4">
-      <h4 className="text-primary mb-3">שאלות עבור פסוריאזיס/דלקת מפרקים</h4>
-      
-      <div className="form-group radio-preferred mb-3">
-        <label htmlFor="biopsieIdent" className="form-label">
-          {questions.find(q => q.field_name === "biopsieIdent")?.question_text || "שאלה לא זמינה"}
-        </label>
-        {["כן", "לא", "לא יודע"].map(opt => (
-          <div className="form-check" key={opt}>
-            <input type="radio" name="biopsieIdent" value={opt} onChange={handleChange}
-              onClick={() => handleChange({ target: { name: "biopsieIdent", value: formData.biopsieIdent === opt ? "" : opt } })}
-              checked={formData.biopsieIdent === opt}
-            /> {opt}
-          </div>
-        ))}
-      </div>
-
-      <div className="form-group radio-preferred mb-3">
-        <label htmlFor="steroidiesTakeCare" className="form-label" >
-        {questions.find(q => q.field_name === "steroidiesTakeCare")?.question_text || "שאלה לא זמינה"}
-        </label>
-        {["כן", "לא", "לא יודע"].map(opt => (
-          <div className="form-check" key={opt}>
-            <input type="radio" name="steroidiesTakeCare" value={opt} onChange={handleChange}
-              onClick={() => handleChange({ target: { name: "steroidiesTakeCare", value: formData.steroidiesTakeCare === opt ? "" : opt } })}
-              checked={formData.steroidiesTakeCare === opt}
-            /> {opt}
-          </div>
-        ))}
-      </div>
-
-      <div className="form-group radio-preferred mb-3">
-        <label htmlFor="fotoTherapyTakeCare" className="form-label" >
-        {questions.find(q => q.field_name === "fotoTherapyTakeCare")?.question_text || "שאלה לא זמינה"}
-        </label>
-        {["כן", "לא", "לא יודע"].map(opt => (
-          <div className="form-check" key={opt}>
-            <input type="radio" name="fotoTherapyTakeCare" value={opt} onChange={handleChange}
-              onClick={() => handleChange({ target: { name: "fotoTherapyTakeCare", value: formData.fotoTherapyTakeCare === opt ? "" : opt } })}
-              checked={formData.fotoTherapyTakeCare === opt}
-            /> {opt}
-          </div>
-        ))}
       </div>
     </div>
   );
@@ -1464,14 +1341,8 @@ const handleChange = (e) => {
         <form  onSubmit={handlesubmit}>
           <div className="row">
             {/* Diagnosis Information */}
-            <CrohnSection formData={formData} handleChange={handleChange} questions={questions} preferredLanguage={preferredLanguage} />
-            <ArthritisSection formData={formData} handleChange={handleChange} questions={questions} preferredLanguage={preferredLanguage} />
-            <PsoriasisSection formData={formData} handleChange={handleChange} questions={questions} preferredLanguage={preferredLanguage} />
-            <SharedPsoriasisArthritisSection formData={formData} handleChange={handleChange} questions={questions} preferredLanguage={preferredLanguage} />
-            <CrohnSection formData={formData} handleChange={handleChange} questions={questions} preferredLanguage={preferredLanguage} handleFileChange={handleFileChange} handleDiseaseChange={handleDiseaseChange} />
             <ArthritisSection formData={formData} handleChange={handleChange} questions={questions} preferredLanguage={preferredLanguage} handleFileChange={handleFileChange} handleDiseaseChange={handleDiseaseChange} />
             <PsoriasisSection formData={formData} handleChange={handleChange} questions={questions} preferredLanguage={preferredLanguage} handleFileChange={handleFileChange} handleDiseaseChange={handleDiseaseChange} />
-            <SharedPsoriasisArthritisSection formData={formData} handleChange={handleChange} questions={questions} preferredLanguage={preferredLanguage} handleFileChange={handleFileChange} handleDiseaseChange={handleDiseaseChange} />
           </div>
 
           <div className="mt-4"></div>
